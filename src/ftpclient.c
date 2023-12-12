@@ -7,7 +7,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdlib.h>
-#include "network.h"
+#include "../include/network.h"
 #include <errno.h>
 NetWork* nw;
 NetWork* data_nw;
