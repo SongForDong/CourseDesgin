@@ -4,7 +4,7 @@
 #include <arpa/inet.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include "network.h"
+#include "../include/network.h"
 
 // 创建网络连接
 NetWork* open_network(char c_or_s,int type,char* ip,uint16_t port)
