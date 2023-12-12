@@ -298,6 +298,7 @@ void cd_to(char* cd)
 
 void download(char* get)
 {
+	printf("Download\n");
 	char *filename = get;
 	sprintf(buf,"TYPE A\n");
 	nsend(nw,buf,strlen(buf));
@@ -335,6 +336,7 @@ void download(char* get)
 	data_nw = open_network('c',SOCK_STREAM,buf,port1*256+port2);
 	printf("[Info] Connect success fd = %d\n",data_nw->fd);
 
+	
 	sprintf(buf,"RETR %s\n",filename);
 	nsend(nw,buf,strlen(buf));
 
@@ -343,7 +345,11 @@ void download(char* get)
 	//printf("test for failed to open file\n");
 	puts(buf);
 
-	int fd = open(filename,O_WRONLY|O_CREAT|O_TRUNC,0644);
+	//strcat("../file4tran/", filename);
+	char* targetname;
+	sprintf(targetname, "../file4tran/%s", filename);
+	printf("%s\n", filename);
+	int fd = open(targetname,O_WRONLY|O_CREAT|O_TRUNC,0644);
 	//printf("HERE FOR OPEN TEST BELOW test for failed to open file:1\n");
 	printf("[TEST] fd=%d\n", fd);
 	if(fd < 0)
@@ -529,6 +535,13 @@ void MKDIR(char* path){
 
 void RMD(char* path){
 	// TODO: implement rmdir
+	char* filename = path;
+	sprintf(buf, "RMD %s\n", filename);
+	nsend(nw, buf, strlen(buf));
+
+	bzero(buf, sizeof(buf));
+	nrecv(nw, buf, sizeof(buf));
+	puts(buf);
 }
 
 off_t get_filesize(char* filename){
